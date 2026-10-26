@@ -1,33 +1,62 @@
-# context.yml — Experiment variant: Sonnet 4.6 on Phase 4
-# Profile: personal (skills library / tooling repo, non-regulated)
+# personal.yml — sensible defaults for a GitHub-hosted personal or small-team project.
+# No ITSM, no regulated data, no multi-team governance.
 #
-# USE THIS CONTEXT FOR: Sonnet 4.6 discovery → definition run on Phase 4 ref doc
-# SWITCH TO THIS: cp contexts/experiment-sonnet-phase4.yml .github/context.yml
+# Usage: copy to .github/context.yml to activate.
+#   cp contexts/personal.yml .github/context.yml
+#
+# Edit the fields below to match your repo before committing.
 
 meta:
-  name: "SDLC Skills Pipeline Library"
-  scope: personal
-  regulated: false
+  name: "Skills Framework"          # human label shown in /workflow output
+  scope: personal                   # personal | team | programme
+  regulated: false                  # true enables compliance bundle prompts
+  repoUrl: "https://github.com/ravind-ramnath/skills-framework"
 
 source_control:
-  platform: github
-  base_branch: master
-  merge_request_term: "pull request"
-  pr_command: "gh pr create --draft"
-  artefact_root: ".github"
+  platform: github                  # github | gitlab | bitbucket | azure-devops | other
+  base_branch: master                 # main | master | trunk | develop | production
+  merge_request_term: "pull request" # "pull request" | "merge request"
+  pr_command: "gh pr create --draft" # full CLI command to open a draft MR/PR
+  artefact_root: "."                # root dir for skills/, templates/, artefacts/
+
+vcs:
+  type: github                      # github | gitlab | bitbucket | azure-devops | other
+  # agent_instructions.format controls which file the assembly script emits:
+  #   copilot-instructions  → .github/copilot-instructions.md  (GitHub Copilot)
+  #   agents-md             → AGENTS.md at repo root           (vendor-neutral AAIF standard)
+  # If absent, the format is inferred from vcs.type:
+  #   github  → copilot-instructions (default)
+  #   other   → agents-md
+  # Permitted values: copilot-instructions | agents-md
+  # Any other value causes an assembly-time error.
+  # agent_instructions:
+  #   format: copilot-instructions
 
 agent:
   instruction_file: "copilot-instructions.md"
+  # Instruction file loaded automatically by your agent runtime:
+  #   GitHub Copilot  → copilot-instructions.md
+  #   Claude Code     → AGENTS.md
+  #   Cursor          → .cursorrules
+
+outerLoop:
+  # rb-s5: enablement signal for the bootstrap CLI's --with-outer-loop flag.
+  # Every skill file (outer-loop included) is always present under
+  # .github/skills/ regardless of this value (see rb-s2 AC1) — this field only
+  # controls whether the generated instruction file's session-start section
+  # presents outer-loop skills (discovery through decisions) as active tooling
+  # (true) or as installed-but-not-yet-enabled (false, the default). Set to
+  # true automatically when the bootstrap CLI runs with --with-outer-loop; can
+  # also be flipped by re-running the CLI later with just that flag (add-on
+  # mode) — never auto-disabled once enabled (no removal mechanism, MVP scope).
+  enabled: false
 
 architecture:
   ea_registry_repo: "https://github.com/heymishy/ea-registry"
-  ea_registry_local_path: "C:/Users/Hamis/code/ea-registry-repo"
-  ea_registry_authoritative: true
-
-design:
-  # Path reference only — per product/constraints.md #8 ("Design artefacts are
-  # referenced, not embedded"). Do not copy DESIGN.md's token tables in here.
-  system_reference: "artefacts/2026-09-18-design-system-adoption/reference/DESIGN.md"
+  ea_registry_local_path: ""
+  ea_registry_authoritative: false
+  # If true, application/interface registry updates are made in ea_registry_repo
+  # and referenced from product repos via /ea-registry FEED mode.
 
 optimization:
   token_policy:
@@ -37,54 +66,78 @@ optimization:
   routing:
     default_model_class: "balanced"
     escalation_model_class: "deep-reasoning"
+    escalation_triggers:
+      - "high-severity review findings"
+      - "root-cause debugging unresolved after one pass"
+      - "cross-system design ambiguity"
 
 mapping:
   stage_aliases: {}
   artefact_aliases: {}
-  governance:
-    gates: []
+
+skills_upstream:
+  remote: null
+  repo_url: "https://github.com/heymishy/skills-repo.git"
+  strategy: none
 
 scaling:
   maturity_level: "team"
-  target_team_count: 1
+  target_team_count: 2
   state_strategy: "per-repo-json"
+  shared_skill_pack: false
 
-skills_upstream:
-  enabled: true
-  remote: "skills-upstream"
-  url: "https://github.com/heymishy/skills-repo.git"
-  sync_paths:
-    - .github/skills/
-    - .github/templates/
-    - scripts/
-    - docs/skill-pipeline-instructions.md
-  strategy: merge
+runtime:
+  language: typescript              # primary language: typescript | python | java | go | rust | other
+  test_framework: jest              # jest | vitest | pytest | rspec | junit | mocha | other
+  dom_environment: jsdom            # jsdom | happy-dom | none
+  e2e_framework: playwright         # playwright | cypress | selenium | none
+  package_manager: npm              # npm | pnpm | yarn | pip | poetry | cargo | go | maven | other
+  ci: github-actions                # github-actions | gitlab-ci | circleci | jenkins | azure-pipelines | none
 
-# Instrumentation — EXP-010: Fable 5 vs Sonnet 4.6 vs Opus 4.6 vs Sonnet 3.7 model sweep
-# Run: Layer 2 programmatic via run-model-sweep.js --batch against corpus T1-T5 + S2-S13
-# See: workspace/experiments/EXP-010-fable5-model-sweep/manifest.md
+roles:
+  tech_lead: "me"                   # what your team calls the senior technical approver
+  qa: "me"
+  analyst: "me"
+  product: "me"
+
+delivery:
+  cycle_term: "iteration"           # sprint | iteration | cycle | week | quarter
+  phase_gate: false                 # true enables phase gate prompts in /programme
+  change_management:
+    process: none                   # none | informal | cab
+    tool: null                      # null | servicenow | jira-sm | other
+
+tools:
+  project_management: github-issues # github-issues | jira | linear | azure-devops | trello | notion | other
+  documentation: null               # null | confluence | notion | github-wiki | sharepoint
+  artifact_registry: null           # null | nexus | artifactory | github-packages
+  monitoring: null                  # null | dynatrace | datadog | newrelic | grafana
+  log_aggregation: null             # null | splunk | elk | cloudwatch | grafana-loki
+  alerting: null                    # null | pagerduty | opsgenie | victorops
+
+compliance:
+  frameworks: []
+  # Add frameworks that apply to this repo, e.g.:
+  #   - pci-dss
+  #   - gdpr
+  #   - hipaa
+  #   - sox
+  #   - aml-cft
+  sensitive_data_categories: []
+  # Add sensitive identifier types handled by this codebase, e.g.:
+  #   - "card numbers (PANs, CVVs)"
+  #   - "account numbers"
+  #   - "health record identifiers"
+
 instrumentation:
-  enabled: true
-  experiment_id: "EXP-010-fable5-model-sweep"
-  model_label: "claude-sonnet-4-6"
-  cost_tier: "fast"
+  enabled: false              # boolean — set true to activate capture; false (default) = no capture
+  experiment_id: ""           # string — unique slug, e.g. 2026-04-18-model-comparison
+  model_label: ""             # string — descriptive label only, e.g. "claude-sonnet-4-6" (NO API keys — MC-SEC-02)
+  cost_tier: ""               # string — standard | premium
+# To activate: set enabled: true, fill in experiment_id, model_label, and cost_tier.
+# Results are written to workspace/experiments/[experiment-id]/ — see workspace/experiments/README.md.
 
 audit:
-  ci_attachment: true           # opt-in: collect and upload governed artefact bundles on each PR
-  ci_platform: github-actions   # adapter to use for upload + comment
-  artifact_retention_days: 7    # days to retain CI artefact bundles
-  staging_e2e_scenario_a: true  # opt-in, BLOCKING: story a5-ci-gate-scenario-a-blocking's Scenario A (A1-A4) real-staging E2E job (.github/workflows/e2e.yml `scenario-a-staging-e2e` job) -- a distinct flag from the pre-existing non-blocking `e2e_tests` semantics, not a reuse of that key
-  staging_e2e_scenario_b: true  # opt-in, BLOCKING: story b2-ci-gate-scenario-b-coverage-mapping's Scenario B (B1) real-staging E2E job (.github/workflows/e2e.yml `scenario-b-staging-e2e` job) -- a distinct flag from both `e2e_tests` and `staging_e2e_scenario_a`, not a reuse of either key
-
-improvement_agent:
-  min_dream_interval_hours: 23  # minimum hours between scheduled dreaming runs
-
-improve:
-  auto_confirm: false           # interactive mode (default); set true for non-interactive CI runs
-
-evaluation:
-  mode: false         # set to true for eval harness, sweep script, non-interactive runs
-                        # NEVER set to true in production — eval artefacts are scored then discarded
-  # fixed judge — never the model under evaluation
-  judge_model: claude-sonnet-4-6
-  output_path: workspace/eval-run-result.json
+  ci_attachment: false          # opt-in: set true to collect and upload governed artefact bundles on each PR
+  ci_platform: github-actions   # adapter to use for upload + comment; valid values: github-actions
+  artifact_retention_days: 7    # number of days to retain CI artefact bundles before auto-deletion
