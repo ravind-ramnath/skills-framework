@@ -1,67 +1,35 @@
 {
-  "currentPhase": "2026-10-20-production-playback-capture: test-plan complete for ppc-s1/ppc-s2/ppc-s3 (3 stories, 1 epic, walking-skeleton slicing); about to run /definition-of-ready next in this same session. Discovery was fully restarted from Section 1 this session with the corrected self-service/multi-tenant frame (see decisions.md's 2026-10-21 CORRECTION entry from the prior session), then /clarify, /benefit-metric, /definition, /review (2 runs -- a real HIGH finding found and fixed), and /test-plan all completed in this one continuous session.",
-  "lastUpdated": "2026-10-21T09:30:00.000Z",
-  "activeFeature": "2026-10-20-production-playback-capture",
-  "previousFeature": "2026-10-19-real-playback-capture-automation",
+  "currentPhase": "Workstream discovery — clarified, review and approval pending",
+  "lastUpdated": "2026-10-27T10:26:33Z",
+  "activeFeature": "2026-10-27-platform-foundation-control-plane",
   "cycle": {
+    "programme": {
+      "status": "complete",
+      "artefact": "artefacts/2026-10-27-ai-practice-governance-programme/programme.md",
+      "workstreams": [
+        "2026-10-27-platform-foundation-control-plane",
+        "identity-access-management",
+        "cyber-security-assurance",
+        "ai-business-risk",
+        "governance-frameworks",
+        "engineering-adoption"
+      ]
+    },
     "discovery": {
-      "status": "approved",
-      "artefact": "artefacts/2026-09-14-discovery-session-file-attachments/discovery.md",
-      "completedAt": "2026-10-04T08:40:49.673Z",
-      "note": "Unchanged since last checkpoint -- check-workspace-state.js (story p1.5) hardcodes this single legacy block; see prior checkpoint history for the full explanation. Candidate for its own follow-up story, not opened yet."
-    },
-    "signalsPanelLabelClarity": {
-      "status": "COMPLETE -- splc-s1 at definition-of-done, PR #947 merged",
-      "note": "Unchanged since last checkpoint -- see prior checkpoint history for full detail."
-    },
-    "productionErrorInvestigation": {
-      "status": "PAUSED -- mid-investigation, blocked on a session restart to pick up the newly-configured PostHog MCP server",
-      "note": "Unchanged since last checkpoint, not resumed this session. See prior checkpoint history for full detail (production 'model error'/'sign in again' investigation; a real, confirmed, currently-repeating tenant_admin_bootstrap_failed SQL type-inference bug was found along the way, still not fixed)."
-    },
-    "tenantAdminBootstrapStale": {
-      "status": "UNKNOWN -- stale snapshot from 2026-09-26, not re-verified across the last several sessions including this one",
-      "note": "Unchanged since last checkpoint -- see prior checkpoint history for full detail. Check artefacts/2026-09-26-tenant-admin-bootstrap/ and pipeline-state.json directly before assuming anything here is current."
-    },
-    "customerJourneyAsFirstClass": {
-      "status": "FULLY DELIVERED -- all 5 epics, 13 stories at dodStatus: complete. Feature-level stage advanced to definition-of-done.",
-      "note": "Unchanged since last checkpoint -- see prior checkpoint history for full detail."
-    },
-    "infiniteCanvas": {
-      "status": "FULLY COMPLETE. ic-s1 through ic-s4 and ic-hotfix1 all DoD-complete and merged, deployed to staging and production.",
-      "note": "Unchanged since last checkpoint -- see prior checkpoint history for full detail."
-    },
-    "journeyAuthoringExperience": {
-      "status": "4/4 stories merged (jae-s1, jae-s2, jae-s3, jae-s4). jae-s4's own /definition-of-done NOT yet run -- still blocked on staging access. Epic journey-authoring-delivery-view-grid defined, story jae-s5 written (not yet DoR'd, not yet built).",
-      "note": "Unchanged since last checkpoint, not resumed this session -- see prior checkpoint history for full detail."
-    },
-    "featurePlaybackDemo": {
-      "status": "FULLY COMPLETE. fpd-s1 through fpd-s6 all DoD-complete and merged.",
-      "note": "Unchanged since last checkpoint -- see prior checkpoint history for full detail. Note: production-playback-capture's own /review Run 1 found that fpd-s3/fpd-s4's own /playback viewer route reads untenanted pipeline-state.json data -- confirmed directly in code (features.js/journey-store.js) during this session, not just inferred. This is a real, live cross-tenant-adjacent gap in that route's own data model (no tenant dimension on pipeline-state.json's features[] at all) -- not itself a defect for fpd's own original use case (internal/engineering-facing), but now documented as the reason production-playback-capture builds a new surface instead of extending /playback. Worth its own look if /playback is ever exposed beyond internal engineering use."
-    },
-    "realPlaybackCaptureAutomation": {
-      "status": "FULLY COMPLETE. rpca-s1 through rpca-s5 plus 4 hotfixes all DoD-complete and merged (PRs #1002-#1012).",
-      "note": "Unchanged since last checkpoint -- see prior checkpoint history for full detail. Note: production-playback-capture's own /review Run 1 found that rpca-s2's own selector-derivation mechanism (parsing tests/e2e/*.spec.js in this repo for an AC-naming convention) is specific to this repo's own dogfooded features and does not generalise to an arbitrary external tenant's own feature in their own connected repo. This does not change rpca's own DoD status (it did exactly what its own story asked, for its own in-repo use case) -- flagged here only because production-playback-capture initially assumed it would transfer directly, and that assumption was wrong. See that feature's own decisions.md 2026-10-21 DESIGN entry."
-    },
-    "productionPlaybackCapture": {
-      "status": "test-plan complete for all 3 stories (ppc-s1, ppc-s2, ppc-s3), 1 epic (ppc-self-service-capture), walking-skeleton slicing. About to run /definition-of-ready next in this same session.",
-      "note": "Full session arc: discovery restarted from Section 1 with the corrected self-service/multi-tenant frame (see decisions.md 2026-10-21 CORRECTION entry from prior session) -> /clarify (5 questions, 2 independently code-verified: session-reuse auth via opaque session_id in middleware/session.js; /playback's cross-tenant leak risk via direct features.js/journey-store.js read) -> /benefit-metric (3 Tier 1 metrics, roadmap-alignment caveat about wuce having no live paying customers yet) -> /definition (walking-skeleton, 1 epic, 3 stories, NFR profile, program-design + data-model canvas markers) -> /review Run 1 found a real HIGH finding (1-H1: the claimed rpca-mechanism reuse does not hold for AC-to-screen target resolution -- rpca-s2's selector-derivation only works for this repo's own E2E-spec convention) -> operator chose manual-target-entry-for-MVP over a platform-wide auto-derivation redesign -> stories revised, decisions.md DESIGN entry logged -> /review Run 2 clean (0 HIGH/MEDIUM across all 3 stories) -> /test-plan complete for all 3 (33 total tests, 16 ACs, all WCAG checks manual-only since this repo has no automated a11y tooling at all -- confirmed repo-wide, logged as D48 in learnings.md). Two new learnings logged this session: D47 (a 'reuse the proven mechanism' claim needs per-sub-mechanism verification, not one holistic check) and D48 (the accessibility tooling gap). /estimate E1 was never run at discovery (a process miss this session, not corrected retroactively since E2 was already offered and explicitly skipped by the operator at /definition close -- not worth reopening now)."
+      "status": "clarified",
+      "artefact": "artefacts/2026-10-27-platform-foundation-control-plane/discovery.md",
+      "note": "Discovery content and clarification log are complete. ADR-001 and the related assumption log entry are recorded in decisions.md. Provider access/integration and signal-collection feasibility are assigned to pre-implementation spikes; named reviewer/approver and explicit discovery approval are still pending."
     }
   },
   "checkpoint": {
-    "writtenAt": "2026-10-21",
-    "contextAtWrite": "Mid-session checkpoint taken proactively before /definition-of-ready (a file-read-heavy phase per this repo's own 55% guidance), after a long continuous run through discovery-restart -> clarify -> benefit-metric -> definition -> review (2 runs) -> test-plan for production-playback-capture, all in one session. No blockers currently -- the feature is in a clean, fully-passing state ready for DoR.",
-    "resumeInstruction": "Next action: run /definition-of-ready for ppc-s1, ppc-s2, and ppc-s3 (artefacts/2026-10-20-production-playback-capture/stories/ppc-s{1,2,3}.md). All three have passed /review (Run 2 for ppc-s1/ppc-s2, Run 1 for ppc-s3, 0 HIGH/MEDIUM findings remaining) and have complete test plans + verification scripts at artefacts/2026-10-20-production-playback-capture/test-plans/ and verification-scripts/. Read decisions.md in full before starting DoR -- it now has 4 entries for this feature (2026-10-20 DESIGN re: ffmpeg/redaction spike; 2026-10-21 CORRECTION re: the wrong-frame restart; 2 new 2026-10-21 ARCHITECTURE entries re: session-reuse auth and the new-surface-vs-/playback decision; 1 new 2026-10-21 DESIGN entry re: manual-target-entry-for-MVP). The epic's own Human Oversight Level is Medium (pause for human review at PR) -- carry that into DoR's own sign-off routing. nfr-profile.md is already saved and Active.",
+    "writtenAt": "2026-10-27",
+    "contextAtWrite": "The Platform Foundation and Control Plane discovery is clarified and remains unapproved. ADR-001 records provider-managed runtimes with a common governance control plane, and a separate assumption log entry records provider/telemetry feasibility handling. No captures newer than the existing checkpoint date were found to promote.",
+    "resumeInstruction": "Review the clarified discovery and ADR-001, name a reviewer if applicable and an approving individual, and obtain explicit discovery approval before /benefit-metric. Ask whether to record or skip E1 (the rough outer-loop focus-time forecast from /estimate pass 1).",
     "pendingActions": [
-      "NEW (2026-10-23, /definition-of-done ppc-s3): all 3 stories in 2026-10-20-production-playback-capture (ppc-s1, ppc-s2, ppc-s3) now show dodStatus=complete -- the rpca-s5 mandatory automatic feature-playback capture run (/feature-playback Steps 1-3) was attempted and could not proceed because E2E_STAGING_AUTH_STUB_SECRET is not configured in this session. Per /definition-of-done's own instruction this did not block or downgrade ppc-s3's DoD verdict (COMPLETE) and was not retried. Run /feature-playback manually for this feature once the secret is available in a session with staging access. Separately, /trace has never been run for this feature (artefacts/2026-10-20-production-playback-capture/trace/ does not exist) -- run it before /release.",
-      "NEXT ACTION (primary thread): run /definition-of-ready for ppc-s1, ppc-s2, ppc-s3 -- see resumeInstruction above.",
-      "Carried forward, unscoped, not re-investigated this session (see prior checkpoint history for full detail on each): the local dev server's own HTTP-hang issue; the local .env's own DATABASE_URL (Neon Postgres) password-authentication failure (confirmed, not fixed); scripts/ci-test-regression-check.js only prints failing file names, no assertion detail; journey-store-pg.js hardcodes ssl:{rejectUnauthorized:false}; the dashboard page's own missing CSRF token blocking some E2E fixtures; check-pipeline-state-integrity.js's C3 check has no accommodation for a structurally-blocked-but-alternatively-verified test; bin/skills advance's dot-notation writer silently creates a bogus nested field for an unknown top-level segment (did NOT recur this session -- all advance calls targeted correctly, verified directly after each write); the production tenant_admin_bootstrap_failed SQL type-inference bug (does not block login, still unfixed); skills.js's SSE/turn error paths never emit a PostHog event; signals-aggregator.js's reference/ parser throws EISDIR on a subdirectory; /improve's own Haiku model routing has no skill-specific eval evidence; check-workspace-state.js's own legacy single-discovery-block requirement; bri-s3.3's own recurring /admin/credits 502 flake; the aggregate /journeys list page blank-id/name rendering; duplicate-feature-name detection at creation time; the two duplicate 'customer journey as first class' records; promote-to-prod's own missing version-stamp step; the npm ci timing mystery (ncdv-s1); listArtefacts local-vs-Postgres precedence bug; computeStep1Summary test-plan/DoR scanner convention mismatch; Fly.io auto_stop_machines mid-request suspension; dsa-s3's WCAG AA contrast gap on .btn--primary (NOTE: directly relevant now -- see new D48 learning, this repo has NO automated a11y tooling at all, a bigger version of this same gap); gate-advance's dor-signed-off validator bypass audit; Pod Manager's missing sidebar nav entry; tenant-admin-bootstrap's own discovery status unknown since 2026-09-26; the Fleet Aggregation scheduled workflow's own credential/auth failure; the stage-edit side panel's own stale-until-reload autosave display bug; pipeline-state.schema.json is missing the slicingStrategy field entirely (confirmed this session -- a pre-existing gap also present on rpca and others, not fixed, no active schema validator script enforces it in CI today).",
-      "NEXT ACTION (thread, unchanged): live-verify jae-s4's AI-suggestion-RENDERS path on staging once the operator signs back in, then run jae-s4's own /definition-of-done.",
-      "NEXT ACTION (thread, unchanged): run /test-plan and /definition-of-ready for jae-s5 (artefacts/2026-10-14-journey-authoring-experience/stories/jae-s5.md), then build it.",
-      "NEXT ACTION (thread, unchanged): write a short-track story from spikes/canvas-node-styling-outcome.md (verdict FIX) -- CSS-only override of drawflow's vendor default node/port/connector colours onto the app's own tokens.",
-      "NEW CANDIDATE (from this session's D48 learning): scope a short-track story to add axe-core (or equivalent) to the test suite once, platform-wide -- multiple stories across multiple features have now independently re-discovered this repo has zero automated accessibility tooling."
+      "Obtain a named reviewer if applicable and a named approving individual, then record explicit approval before advancing to /benefit-metric.",
+      "Ask whether to record E1 (the rough outer-loop focus-time forecast from /estimate pass 1) or skip it before closing discovery.",
+      "Plan pre-implementation spikes to validate provider access/integration boundaries and cross-provider collection of the target signals.",
+      "Decide payload capture, access, and retention policy separately before production."
     ]
-  },
-  "estimate": {
-    "e1": null
   }
 }

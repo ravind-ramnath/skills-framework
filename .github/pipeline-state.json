@@ -1,7 +1,53 @@
 {
   "version": "1",
-  "updated": "2026-07-23T10:07:19.627Z",
-  "programmes": [],
+  "updated": "2026-10-27T09:24:04.832Z",
+  "programmes": [
+    {
+      "slug": "2026-10-27-ai-practice-governance-programme",
+      "name": "Artificial Intelligence (AI) Practice Governance Programme",
+      "status": "active",
+      "phase": "Workstream discovery",
+      "currentPhase": "Workstream discovery",
+      "health": "green",
+      "workstreams": [
+        "2026-10-27-platform-foundation-control-plane",
+        "identity-access-management",
+        "cyber-security-assurance",
+        "ai-business-risk",
+        "governance-frameworks",
+        "engineering-adoption"
+      ],
+      "phaseGates": [
+        {
+          "name": "Enterprise Landing Zones and Subscription Management",
+          "targetDate": "TBD",
+          "status": "pending"
+        },
+        {
+          "name": "Identity and Access Management",
+          "targetDate": "TBD",
+          "status": "pending"
+        },
+        {
+          "name": "Sandbox Architecture Deployment",
+          "targetDate": "TBD",
+          "status": "pending"
+        },
+        {
+          "name": "Microsoft Agent 365 Control Plane and Multi-Cloud Setup",
+          "targetDate": "TBD",
+          "status": "pending"
+        },
+        {
+          "name": "Risk, Security, Cost and Compliance",
+          "targetDate": "TBD",
+          "status": "pending"
+        }
+      ],
+      "dependencies": [],
+      "updatedAt": "2026-10-27T09:24:04.832Z"
+    }
+  ],
   "phase4": {
     "spikes": {
       "spike-a": {
@@ -27141,6 +27187,7 @@
       "name": "Skill Tool Invocability Pilot",
       "stage": "discovery",
       "discoveryStatus": "clarified",
+      "decisionsArtefact": "artefacts/2026-10-27-platform-foundation-control-plane/decisions.md",
       "health": "green",
       "stories": [],
       "metrics": [],
@@ -43516,6 +43563,86 @@
       "name": "PPC Capture Live Test",
       "health": "green",
       "track": "short"
+    },
+    {
+      "slug": "2026-10-27-platform-foundation-control-plane",
+      "name": "Platform Foundation and Control Plane",
+      "stage": "discovery",
+      "discoveryStatus": "clarified",
+      "health": "green",
+      "stories": [],
+      "metrics": [],
+      "updatedAt": "2026-10-27T10:26:33Z",
+      "track": "programme-workstream",
+      "team": "Platform",
+      "programmeSlug": "2026-10-27-ai-practice-governance-programme",
+      "programme": "2026-10-27-ai-practice-governance-programme",
+      "discoveryArtefact": "artefacts/2026-10-27-platform-foundation-control-plane/discovery.md"
+    },
+    {
+      "slug": "identity-access-management",
+      "name": "Identity and Access Management",
+      "stage": "discovery",
+      "health": "green",
+      "stories": [],
+      "metrics": [],
+      "updatedAt": "2026-10-27T07:44:57.440Z",
+      "track": "programme-workstream",
+      "team": "IAM",
+      "programmeSlug": "2026-10-27-ai-practice-governance-programme",
+      "programme": "2026-10-27-ai-practice-governance-programme"
+    },
+    {
+      "slug": "cyber-security-assurance",
+      "name": "Cyber Security Assurance",
+      "stage": "discovery",
+      "health": "green",
+      "stories": [],
+      "metrics": [],
+      "updatedAt": "2026-10-27T07:44:57.675Z",
+      "track": "programme-workstream",
+      "team": "Cyber",
+      "programmeSlug": "2026-10-27-ai-practice-governance-programme",
+      "programme": "2026-10-27-ai-practice-governance-programme"
+    },
+    {
+      "slug": "ai-business-risk",
+      "name": "AI Business Risk",
+      "stage": "discovery",
+      "health": "green",
+      "stories": [],
+      "metrics": [],
+      "updatedAt": "2026-10-27T07:44:57.911Z",
+      "track": "programme-workstream",
+      "team": "Risk",
+      "programmeSlug": "2026-10-27-ai-practice-governance-programme",
+      "programme": "2026-10-27-ai-practice-governance-programme"
+    },
+    {
+      "slug": "governance-frameworks",
+      "name": "Governance Frameworks",
+      "stage": "discovery",
+      "health": "green",
+      "stories": [],
+      "metrics": [],
+      "updatedAt": "2026-10-27T07:44:58.147Z",
+      "track": "programme-workstream",
+      "team": "Governance",
+      "programmeSlug": "2026-10-27-ai-practice-governance-programme",
+      "programme": "2026-10-27-ai-practice-governance-programme"
+    },
+    {
+      "slug": "engineering-adoption",
+      "name": "Engineering Adoption",
+      "stage": "discovery",
+      "health": "green",
+      "stories": [],
+      "metrics": [],
+      "updatedAt": "2026-10-27T07:44:58.382Z",
+      "track": "programme-workstream",
+      "team": "Engineering",
+      "programmeSlug": "2026-10-27-ai-practice-governance-programme",
+      "programme": "2026-10-27-ai-practice-governance-programme"
     }
   ],
   "archive": ".github/pipeline-state-archive.json",
